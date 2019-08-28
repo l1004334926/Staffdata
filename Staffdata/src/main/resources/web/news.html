@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="./js/jquery-3.0.0.js"></script>
+    <title>查询信息</title>
+</head>
+<body>
+<div align="center">
+    <div>员工工号：<input width="70px" id="code">
+    <button onclick="search()">查询</button></div>
+    <div>员工信息：
+    <table border="1px">
+        <tr>
+            <th>工号</th><td id="1" width="100px"></td>
+        </tr>
+        <tr>
+            <th>姓名</th><td id="2"width="100px"></td>
+        </tr>
+        <tr>
+            <th>所在部门</th><td id="3"width="100px"></td>
+        </tr>
+    </table>
+    </div>
+</div>
+</body>
+<script>
+    function search() {
+        // alert(1);
+        $(document).ready(function() {
+            // alert(2);
+            var code=document.getElementById('code').value;
+           
+            $.ajax({
+                type:"post", // 以post方式发起请求
+                url: "http://localhost:8080/search",// 将你的请求参数以问号拼接到url中进行参数传递
+                data:{"code":code},
+                datatype:"json",
+                success:function (data) {
+                        $("#1").html(data.usercode);
+                        $("#2").html(data.username);
+                        $("#3").html(data.department);
+
+                }
+            });
+        });
+    }
+</script>
+
+</html>
